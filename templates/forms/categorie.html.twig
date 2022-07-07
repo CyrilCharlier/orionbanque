@@ -1,0 +1,35 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'id':'categorie_form'}}) }}
+<div class="modal fade" id="modalFormCategorie" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormCategorieTitle">Cat&eacute;gorie</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <!-- end modalheader -->
+            <div class="modal-body">
+                <div class="form-floating form-floating-custom mb-3">
+                    {{ form_widget(form.libelle, { 'attr': { 'class': 'form-control', 'placeholder':'Libellé' }}) }}
+                    <label for="form_categorie_libelle">Libellé</label>
+                    <div class="form-floating-icon">
+                        <i class="uil uil-text-fields"></i>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    {{ form_widget(form.parent, { 'attr': { 'class': 'form-select', 'placeholder':'Parent' }}) }}
+                    <label for="operation_form_parent">Parent</label>
+                </div>
+            </div>
+            <!-- end modalbody -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light"
+                    data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+            </div>
+            <!-- end modalfooter -->
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+

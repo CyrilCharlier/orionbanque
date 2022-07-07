@@ -1,0 +1,9 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    globals:
+        app_name: 'OrionBanque'
+        app_description: 'Simplifiez la vie de vos comptes avec OrionBanque'
+
+when@test:
+    twig:
+        strict_variables: true

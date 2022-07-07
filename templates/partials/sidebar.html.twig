@@ -1,0 +1,86 @@
+<!-- ========== Left Sidebar Start ========== -->
+<div class="vertical-menu">
+
+
+     <!-- LOGO -->
+     <div class="navbar-brand-box">
+        <a href="/" class="logo logo-dark">
+            <span class="logo-sm">
+                <img src="/images/logo-sm.svg" alt="" height="26">
+            </span>
+            <span class="logo-lg">
+                <img src="/images/logo-sm.svg" alt="" height="26"> <span class="logo-txt">{{app_name}}</span>
+            </span>
+        </a>
+
+        <a href="/" class="logo logo-light">
+            <span class="logo-sm">
+                <img src="/images/logo-sm.svg" alt="" height="26">
+            </span>
+            <span class="logo-lg">
+                <img src="/images/logo-sm.svg" alt="" height="26"> <span class="logo-txt">{{app_name}}</span>
+            </span>
+        </a>
+    </div>
+
+    <button type="button" class="btn btn-sm px-3 font-size-16 header-item vertical-menu-btn">
+        <i class="fa fa-fw fa-bars"></i>
+    </button>
+
+    <div data-simplebar class="sidebar-menu-scroll">
+
+        <!--- Sidemenu -->
+        <div id="sidebar-menu">
+            <!-- Left Menu Start -->
+            <ul class="metismenu list-unstyled" id="side-menu">
+                <li class="menu-title" data-key="t-menu">Menu</li>
+
+                <li>
+                    <a href="/">
+                        <i class="bx bx-home-circle nav-icon"></i>
+                        <span class="menu-item" data-key="t-dashboard">Dashboard</span>
+                    </a>
+                </li>
+
+                <li class="menu-title" data-key="t-applications">Applications</li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx-wallet-alt nav-icon"></i>
+                        <span class="menu-item" data-key="t-compte">Compte</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ path('compte_list') }}" data-key="t-list-compte">Liste des comptes</a></li>
+                        {% for compte in app.user.comptes %}
+                        <li><a href="{{ path('compte_show_table', {id:compte.id, slug:compte.slug}) }}" data-key="t-compte-{{compte.id}}">{{ compte.libelle }}</a></li>
+                        {% endfor %}
+                        <li><a href="#" data-key="t-ajout-compte" id="btn_add_compte">Ajouter un Compte</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="/">
+                        <i class="bx bx bxs-calendar-event nav-icon"></i>
+                        <span class="menu-item" data-key="t-echeance">Ech&eacute;ances</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);" class="has-arrow">
+                        <i class="bx bx bx-cog nav-icon"></i>
+                        <span class="menu-item" data-key="t-compte">Param&eacute;trage</span>
+                    </a>
+                    <ul class="sub-menu" aria-expanded="false">
+                        <li><a href="{{ path('banque_list') }}" data-key="t-banque">Banque</a></li>
+                        <li><a href="{{ path('categorie_list') }}" data-key="t-categorie">Cat&eacute;gorie</a></li>
+                        <li><a href="{{ path('modepaiement_list') }}" data-key="t-mode-paiement">Mode Paiement</a></li>
+                        <li><a href="{{ path('tiers_list') }}" data-key="t-tiers">Tiers</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+        <!-- Sidebar -->
+    </div>
+</div>
+<!-- Left Sidebar End -->

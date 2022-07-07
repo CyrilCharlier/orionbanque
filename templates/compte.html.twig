@@ -1,0 +1,95 @@
+{% include 'partials/main.html.twig' %}
+
+    <head>
+
+        {{ include('partials/title-meta.html.twig', {title: 'Gestion des Comptes'}) }}
+
+        <!-- gridjs css -->
+        <link rel="stylesheet" href="/libs/gridjs/theme/mermaid.min.css">
+        <link rel="stylesheet" href="/libs/flatpickr/flatpickr.min.css">
+        <link rel="stylesheet" href="/libs/@simonwep/pickr/themes/classic.min.css"/>
+
+        {% include 'partials/head-css.html.twig' %}
+
+    </head>
+
+    {% include 'partials/body.html.twig' with {dark: true} %}
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        {% include 'partials/topbar.html.twig' with {pagetitle: '', title: 'Comptes'} %}
+
+        {% include 'partials/sidebar.html.twig' %}
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <div class="row">
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-10">
+                            <div class="card">
+                                <div class="card-header justify-content-between d-flex align-items-center">
+                                    <h4 class="card-title">Liste des Comptes</h4>
+                                    <button type="button" class="btn btn-outline-success" id="btn_add_compte"><i class="uil uil-plus me-2"></i> Ajouter</button>
+                                </div><!-- end card header -->
+                                <div class="card-body">
+
+                                        <table class="table table-sm table-striped table-hover mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Action</th>
+                                                    <th class="text-center">Libell&eacute;</th>
+                                                    <th class="text-center">Banque</th>
+                                                    <th class="text-center">Date cr&eacute;ation</th>
+                                                    <th class="text-center">Date modification</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for compte in comptes %}
+                                                <tr>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-outline-primary btn-sm" id="btn_mod_compte_{{compte.id}}" data-compteid="{{ compte.id }}" data-comptebanqueid="{{ compte.banque.id }}" data-comptelibelle="{{ compte.libelle }}">Modifier</button>
+                                                    </td>
+                                                    <td class="text-center">{{ compte.libelle }}</td>
+                                                    <td class="text-center">{{ compte.banque.libelle }}</td>
+                                                    <td class="text-center">{{ compte.createdAt|date("d-m-Y G:i:s") }}</td>
+                                                    <td class="text-center">{{ compte.updatedAt|date("d-m-Y G:i:s") }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table><!-- end table -->
+                  
+                                </div>
+                                <!-- end card body -->
+                            </div>
+                            <!-- end card -->
+                        </div>
+                        <!-- end col -->
+                        <div class="col-lg-1"></div>
+                    </div>
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            {{ include('partials/footer.html.twig') }}
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    {{ include('partials/vendor-scripts.html.twig') }}
+
+    <script src="/js/app.js"></script>
+    <script src="/js/ob.js"></script>
+
+    </body>
+
+</html>

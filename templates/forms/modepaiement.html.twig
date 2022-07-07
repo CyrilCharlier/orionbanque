@@ -1,0 +1,38 @@
+{{ form_start(form, {'method': 'POST', 'attr': {'id':'mode_paiement_form'}}) }}
+<div class="modal fade" id="modalFormModePaiement" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalFormModePaiementTitle">Mode de Paiement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <!-- end modalheader -->
+            <div class="modal-body">
+                <div class="form-floating form-floating-custom mb-3">
+                    {{ form_widget(form.libelle, { 'attr': { 'class': 'form-control', 'placeholder':'Libellé' }}) }}
+                    <label for="modepaiement_form_libelle">Libellé</label>
+                    <div class="form-floating-icon">
+                        <i class="uil uil-text-fields"></i>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    {{ form_widget(form.actif, { 'attr': { 'switch': 'none' }}) }}
+                    <label for="mode_paiement_form_actif" data-on-label="Actif" data-off-label="Inactif" class="mb-0"></label>
+                    
+                    {{ form_widget(form.debit, { 'attr': { 'switch': 'none' }}) }}
+                    <label for="mode_paiement_form_debit" data-on-label="Débit" data-off-label="Crédit" class="mb-0"></label>
+                </div>
+            </div>
+            <!-- end modalbody -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light"
+                    data-bs-dismiss="modal">Annuler</button>
+                <button type="submit" class="btn btn-primary">Soumettre</button>
+            </div>
+            <!-- end modalfooter -->
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+

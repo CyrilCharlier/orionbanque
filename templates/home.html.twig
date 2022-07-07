@@ -1,0 +1,63 @@
+{{ include('partials/main.html.twig') }}
+
+    <head>
+
+        {{ include('partials/title-meta.html.twig', {title: 'Dashboard'}) }}
+
+        <!-- plugin css -->
+        <link href="/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+        <!-- swiper css -->
+        <link rel="stylesheet" href="/libs/swiper/swiper-bundle.min.css">
+
+        {{ include('partials/head-css.html.twig') }}
+
+    </head>
+
+    {{ include('partials/body.html.twig', {dark: true}) }}
+
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        {{ include('partials/topbar.html.twig', {pagetitle: '', title: 'Dashboard'}) }}
+
+        {{ include('partials/sidebar.html.twig') }}
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div class="main-content">
+            <div class="page-content">
+                <div class="container-fluid">
+
+
+                </div>
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            {{ include('partials/footer.html.twig') }}
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+    {{ include('partials/vendor-scripts.html.twig') }}
+
+    <!-- apexcharts -->
+    <script src="/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    <script src="/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!-- swiper js -->
+    <script src="/libs/swiper/swiper-bundle.min.js"></script>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/ob.js"></script>
+
+    </body>
+
+</html>

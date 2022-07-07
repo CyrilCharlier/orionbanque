@@ -1,0 +1,62 @@
+{{ form_start(form, { 'action': path('operation_add', { 'id': compte.id }), 'method': 'POST', 'attr': { 'class': 'gx-3 gy-2 align-items-center' }}) }}
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mb-3">
+                {{ form_widget(form.date, { 'attr': { 'class': 'form-control', 'placeholder':'Date' }}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mb-3">
+                {{ form_widget(form.libelle, { 'attr': { 'class': 'form-control', 'placeholder':'Libellé' }}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="mb-3">
+                {{ form_widget(form.modepaiement, { 'attr': { 'class': 'form-select', 'placeholder':'Mode de Paiement', 'data-trigger':'' }}) }}
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-outline-success" id="btn_add_modepaiement" ><i class="uil uil-plus"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="mb-3">
+                {{ form_widget(form.tiers, { 'attr': { 'class': 'form-select', 'placeholder':'Tiers', 'data-trigger':'' }}) }}
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-outline-success" id="btn_add_tiers" ><i class="uil uil-plus"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="mb-3">
+                {{ form_widget(form.categorie, { 'attr': { 'class': 'form-select', 'placeholder':'Categorie', 'data-trigger':'' }}) }}
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-outline-success" id="btn_add_categorie" ><i class="uil uil-plus"></i></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="mb-3">
+                {{ form_widget(form.montant, { 'attr': { 'class': 'form-control', 'placeholder':'montant' }}) }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 d-flex align-items-center">
+            Point&eacute;&nbsp;&nbsp;{{ form_widget(form.pointe, { 'attr': { 'switch': 'none' }}) }}
+            <label for="operation_form_pointe" data-on-label="Oui" data-off-label="Non" class="mb-0"></label>
+        </div>
+        <div class="col-sm-6 d-flex justify-content-end">
+            <button type="submit" class="btn btn-outline-success" id="btn_add_operation"><i class="uil uil-plus me-2"></i> Ajouter</button>
+        </div>
+    </div>
+{{ form_end(form) }}
