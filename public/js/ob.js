@@ -209,7 +209,7 @@ ob = {
     },
     operation: {
       pointe: function(id) {
-        $.get('/operation/pointe/'+id, function(data) {});
+        $.get('/operation/pointe/'+id);
       },
       submitFormAdd: function(evt) {
         evt.preventDefault();
@@ -217,7 +217,7 @@ ob = {
           type: evt.srcElement.method,
           url: evt.srcElement.action,
           data: $(this).serialize(),
-        }).done(function (data) {
+        }).done(function (_data) {
           ob.compte.refreshTable();
         });
       },
