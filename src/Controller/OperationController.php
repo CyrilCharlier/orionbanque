@@ -24,7 +24,11 @@ class OperationController extends AbstractController
         }
 
         $operation = new Operation();
-        $form = $this->createForm(OperationFormType::class, $operation);
+        $form = $this->createForm(OperationFormType::class, $operation, [
+            'action' => $this->generateUrl('operation_add', ['id' => $compte->getId()]),
+            'method' => 'POST',
+        ])
+        ;
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

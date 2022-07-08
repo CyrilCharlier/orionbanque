@@ -388,7 +388,6 @@ body:not([data-sidebar-size=sm]) .app-search {
 }
 
 .dropdown-icon-item {
-  display: block;
   border-radius: 3px;
   line-height: 34px;
   text-align: center;
@@ -654,7 +653,7 @@ body[data-layout=horizontal] .footer {
 }
 #sidebar-menu .has-arrow:after {
   content: "\f0140";
-  font-family: "Material Design Icons";
+  font-family: "Material Design Icons", fantasy;
   display: block;
   -webkit-transition: -webkit-transform 0.2s;
   transition: -webkit-transform 0.2s;
@@ -1811,11 +1810,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
   content: "\f0156" !important;
   font-size: 18px;
   line-height: 15px;
-  font-family: "Material Design Icons" !important;
-}
-
-.alert-outline.alert-dark {
-  color: var(--bs-dark);
+  font-family: "Material Design Icons", fantasy !important;
 }
 
 .alert-top-border.alert-primary {
@@ -1910,7 +1905,7 @@ body[data-layout=horizontal][data-layout-size=boxed] .container-fluid, body[data
 
 .alert-top-border.alert-purple {
   border-top-color: #3966d7;
-  color: #3966d7;
+  color: var(--bs-dark);
 }
 
 .alert-outline.alert-purple {

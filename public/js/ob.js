@@ -63,6 +63,11 @@ ob = {
         ob.addEvent(btn, 'click', ob.compte.addForm);
       });
 
+      // Event sur Operation
+      ob.queryAll('form[id="operation_add_show"]').forEach(function(form) {
+        ob.addEvent(form, "submit", ob.operation.submitFormAdd);
+      });
+
       // Event sur Ajax
       $(document).ajaxStop(function(){
         $("#ajax_loader").hide();
@@ -163,6 +168,10 @@ ob = {
         });
       },
 
+      refreshTable: function() {
+        $('#'+ob.compte.tableName).DataTable().ajax.reload( null, false );
+      },
+
       initFlatpickr: function() {
         flatpickr('#operation_form_date', {
           dateFormat: ob.formatDate
@@ -193,15 +202,23 @@ ob = {
                 console.log(data[i]);
                 ob.operation.pointe(data[i].id);
               }
-              $('#'+ob.compte.tableName).DataTable().ajax.reload( null, false );
+              ob.compte.refreshTable();
           }
         });
       },
     },
     operation: {
       pointe: function(id) {
-        $.get('/operation/pointe/'+id, function(data) {
-
+        $.get('/operation/pointe/'+id, function(data) {});
+      },
+      submitFormAdd: function(evt) {
+        evt.preventDefault();
+        $.ajax({
+          type: evt.srcElement.method,
+          url: evt.srcElement.action,
+          data: $(this).serialize(),
+        }).done(function (data) {
+          ob.compte.refreshTable();
         });
       },
     },
