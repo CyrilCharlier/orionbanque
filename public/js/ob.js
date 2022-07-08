@@ -1,6 +1,6 @@
 let ob = {
   operation: {
-    renderPointe: function(data, type, row) {
+    renderPointe: function(data, _type, _row) {
       if (data) {
         return '<i class="uil uil-check"></i>';
       } else {
@@ -131,7 +131,7 @@ ob = {
           ob.banque.compteBanque,
         );
       },
-      addForm: function(evt) {
+      addForm: function(_evt) {
         ob.loadForm(
           ob.compte.modName,
           '/compte/add',
