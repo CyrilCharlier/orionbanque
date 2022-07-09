@@ -135,11 +135,7 @@ ob = {
         ob.loadForm(
           ob.compte.modName,
           '/compte/add',
-          function() {
-            ob.queryAll('button[id="btn_add_banque_compte"]').forEach(function(btn) {
-              ob.addEvent(btn, 'click', ob.banque.addForm);
-            });
-          },
+          ob.banque.compteBanque,
         );
       },
       init: function() {
@@ -184,9 +180,9 @@ ob = {
         });
 
         ob.addEvent(document, 'DOMContentLoaded', function() {
-          var cb = ob.queryAll('[data-trigger]');
-          for (i = 0; i < cb.length; ++i) {
-            var element = cb[i];
+          let cb = ob.queryAll('[data-trigger]');
+          for (let i = 0; i < cb.length; ++i) {
+            let element = cb[i];
             $(element).select2({
               theme: 'bootstrap-5'
             });
@@ -230,7 +226,7 @@ ob = {
           '/banque/modify/' + evt.target.dataset.banqueid
         );
       },
-      addForm: function(evt) {
+      addForm: function(_evt) {
         ob.loadForm(
           ob.banque.modName,
           '/banque/add'
@@ -250,7 +246,7 @@ ob = {
           '/modepaiement/modify/' + evt.target.dataset.modepaiementid
         );
       },
-      addForm: function(evt) {
+      addForm: function(_evt) {
         ob.loadForm(
           ob.modepaiement.modName,
           '/modepaiement/add',
@@ -265,7 +261,7 @@ ob = {
           type: evt.srcElement.method,
           url: evt.srcElement.action,
           data: $(this).serialize(),
-        }).done(function (data) {
+        }).done(function (_data) {
           ob.refreshCb("modepaiement", "operation_form_modepaiement");
           $('#'+ob.modepaiement.modName).modal('hide');
         });
@@ -279,7 +275,7 @@ ob = {
           '/tiers/modify/' + evt.target.dataset.tiersid
         );
       },
-      addForm: function(evt) {
+      addForm: function(_evt) {
         ob.loadForm(
           ob.tiers.modName,
           '/tiers/add',
@@ -294,7 +290,7 @@ ob = {
           type: evt.srcElement.method,
           url: evt.srcElement.action,
           data: $(this).serialize(),
-        }).done(function (data) {
+        }).done(function (_data) {
           ob.refreshCb("tiers", "operation_form_tiers");
           $('#'+ob.tiers.modName).modal('hide');
         });
@@ -308,7 +304,7 @@ ob = {
           '/categorie/modify/' + evt.target.dataset.categorieid
         );
       },
-      addForm: function(evt) {
+      addForm: function(_evt) {
         ob.loadForm(
           ob.categorie.modName,
           '/categorie/add',
@@ -323,7 +319,7 @@ ob = {
           type: evt.srcElement.method,
           url: evt.srcElement.action,
           data: $(this).serialize(),
-        }).done(function (data) {
+        }).done(function (_data) {
           ob.refreshCb("categorie", "operation_form_categorie");
           $('#'+ob.categorie.modName).modal('hide');
         });
