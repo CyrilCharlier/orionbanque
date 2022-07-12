@@ -7,7 +7,7 @@ class OperationApi
     public function __construct(Operation $o)
     {
         $this->id = $o->getId();
-        $this->date = $o->getDdate->format('Y-m-d');
+        $this->date = $o->getDate()->format('Y-m-d');
         $this->libelle = $o->getLibelle();
         $this->tiers = $o->getTiers() ? $o->getTiers()->getLibelle() : '';
         $this->tiersId = $o->getTiers() ? $o->getTiers()->getId() : '';
