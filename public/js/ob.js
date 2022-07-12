@@ -174,14 +174,14 @@ ob = {
           $('#'+ob.compte.tableName).columns.adjust().draw();
         });
 
-        $("#"+ob.compte.tableName).DataTable().on('select', function(e, dt, type, indexes) {
+        $("#"+ob.compte.tableName).DataTable().on('select', function(_e, _dt, type, indexes) {
           if(type === 'row' && indexes.length == 1) { 
             let data = $("#"+ob.compte.tableName).DataTable().rows( indexes ).data()[0];
             $.ajax({
               type: 'GET',
               url: "/operation/" + data.id,
-            }).done(function (data) {
-              let o = data.data[0];
+            }).done(function (json) {
+              let o = json.data[0];
               document.getElementById('operation_form_date').value = o.date.split('-')[2] + '/' + o.date.split('-')[1] + '/' + o.date.split('-')[0];
               document.getElementById('operation_form_libelle').value = o.libelle;
               document.getElementById('operation_form_montant').value = o.montant;
@@ -195,10 +195,9 @@ ob = {
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            let cb = document.querySelectorAll('[data-trigger]');
-            for (let i = 0; i < cb.length; ++i) {
-              let element = cb[i];
-              $(element).select2({
+            let cbs = document.querySelectorAll('[data-trigger]');
+            for(let cb of cbs) {
+              $(cb).select2({
                 theme: 'bootstrap-5'
               });
             }
@@ -208,7 +207,7 @@ ob = {
           if (event.altKey && (event.key === 'p' || event.key === 'P'))
           {
               let data=$('#'+ob.compte.tableName).DataTable().rows({ selected: true }).data();
-              for(i=0;i<data.length;i++)
+              for(let i=0;i<data.length;i++)
               {
                 ob.operation.pointe(data[i].id);
               }
@@ -219,6 +218,9 @@ ob = {
     },
     operation: {
       pointe: function(id) {
+        $.get('/operation/pointe/'+id);
+      },
+      delete: function(evt) {
         $.get('/operation/pointe/'+id);
       },
       submitFormAdd: function(evt) {
