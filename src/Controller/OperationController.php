@@ -53,6 +53,20 @@ class OperationController extends AbstractController
         return $this->redirectToRoute('compte_show_table', ['id' => $compte->getId(), 'slug' => $compte->getSlug()]);
     }
 
+    #[Route('/operation/delete/{id}', name: 'operation_del')]
+    public function del(Operation $operation, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if($operation->getCompte()->getProprietaire() !== $this->getUser()) {
+            throw new AccessDeniedException('Ce compte est inconnu');
+        }
+
+        $entityManager->remove($operation);
+        $entityManager->flush();
+        
+        $retour = new DataApi([], true);
+        return new JsonResponse($retour);
+    }
+
     #[Route('/operation/modify/{id}', name: 'operation_mod')]
     public function mod(Operation $operation, Request $request, EntityManagerInterface $entityManager): Response
     {

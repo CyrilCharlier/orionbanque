@@ -187,19 +187,7 @@ class Operation
 
     public function getOperationApi()
     {
-        return new OperationApi(
-            $this->getId(),
-            $this->getDate(),
-            $this->getLibelle(),
-            ($this->getTiers() == null ? '' : $this->getTiers()->getLibelle()),
-            $this->getModepaiement()->getLibelle(),
-            $this->getCategorie()->getLibelle(),
-            $this->getMontant(),
-            $this->isPointe(),
-            ($this->getTiers() == null ? '' : $this->getTiers()->getId()),
-            $this->getModepaiement()->getId(),
-            $this->getCategorie()->getId(),
-        );
+        return new OperationApi($this);
     }
 
     public function isPointe(): ?bool

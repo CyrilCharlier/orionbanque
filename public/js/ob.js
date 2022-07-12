@@ -206,10 +206,9 @@ ob = {
         document.addEventListener("keydown", function(event) {
           if (event.altKey && (event.key === 'p' || event.key === 'P'))
           {
-              let data=$('#'+ob.compte.tableName).DataTable().rows({ selected: true }).data();
-              for(let i=0;i<data.length;i++)
-              {
-                ob.operation.pointe(data[i].id);
+              let operations=$('#'+ob.compte.tableName).DataTable().rows({ selected: true }).data();
+              for(let o of operations) {
+                ob.operation.pointe(o.id);
               }
               ob.compte.refreshTable();
           }
@@ -220,7 +219,22 @@ ob = {
       pointe: function(id) {
         $.get('/operation/pointe/'+id);
       },
-      delete: function(evt) {
+      delete: function(_evt) {
+        Swal.fire({
+          title: "Ëtes vous sur ?",
+          text: "Vous ne pourrez pas faire marche arrière",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#51d28c",
+          cancelButtonColor: "#f34e4e",
+          confirmButtonText: "Oui",
+          cancelButtonText: "Non"
+        }).then(function (result) {
+          if (result.value) {
+            Swal.fire("Deleted!", "Your file has been deleted.", "success"
+            );
+          }
+        });
         $.get('/operation/pointe/'+id);
       },
       submitFormAdd: function(evt) {
