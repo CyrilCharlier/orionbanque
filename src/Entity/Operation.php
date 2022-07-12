@@ -195,7 +195,10 @@ class Operation
             $this->getModepaiement()->getLibelle(),
             $this->getCategorie()->getLibelle(),
             $this->getMontant(),
-            $this->isPointe()
+            $this->isPointe(),
+            ($this->getTiers() == null ? '' : $this->getTiers()->getId()),
+            $this->getModepaiement()->getId(),
+            $this->getCategorie()->getId(),
         );
     }
 

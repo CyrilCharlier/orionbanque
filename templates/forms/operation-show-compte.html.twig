@@ -55,8 +55,11 @@
             Point&eacute;&nbsp;&nbsp;{{ form_widget(form.pointe, { 'attr': { 'switch': 'none' }}) }}
             <label for="operation_form_pointe" data-on-label="Oui" data-off-label="Non" class="mb-0"></label>
         </div>
-        <div class="col-sm-6 d-flex justify-content-end">
-            <button type="submit" class="btn btn-outline-success" id="btn_add_operation"><i class="uil uil-plus me-2"></i> Ajouter</button>
+        <div class="col-sm-6">
+            <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-outline-primary mx-auto" id="btn_mod_operation" data-operationid="" data-bs-toggle="tooltip" data-bs-placement="top" title="Modifier l'Opération sélectionnée"><i class="uil uil-edit-alt"></i></button>
+                <button type="submit" class="btn btn-outline-success" id="btn_add_operation" data-bs-toggle="tooltip" data-bs-placement="top" title="Ajouter l'Opération"><i class="uil uil-plus"></i></button>
+            </div>
         </div>
     </div>
 {{ form_end(form) }}

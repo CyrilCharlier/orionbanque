@@ -1,6 +1,6 @@
 <body {% if data is defined %}{{data|raw}}{% endif %} {% if dark %}data-topbar="" data-layout-mode="" {% endif %}data-sidebar="dark">
 <div id="form"></div>
-<div id='ajax_loader' style="position: fixed; left: 50%; top: 50%; display: none;">
+<div id='ajax_loader' style="position: fixed; left: 50%; top: 50%; display: none;z-index: 999;">
     <div class="spinner-grow text-primary m-1" role="status">
         <span class="sr-only">Chargement...</span>
     </div>

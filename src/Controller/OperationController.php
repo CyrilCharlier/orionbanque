@@ -16,6 +16,18 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class OperationController extends AbstractController
 {
+    #[Route('/operation/{id}', name: 'operation_get')]
+    public function get(Operation $operation, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        if($operation->getCompte()->getProprietaire() !== $this->getUser()) {
+            throw new AccessDeniedException('Ce compte est inconnu');
+        }
+        $data = [];
+        $data[] = $operation->getOperationApi();
+        $retour = new DataApi($data, true);
+        return new JsonResponse($retour);
+    }
+
     #[Route('/operation/add/compte/{id}', name: 'operation_add')]
     public function add(Compte $compte, Request $request, EntityManagerInterface $entityManager): Response
     {

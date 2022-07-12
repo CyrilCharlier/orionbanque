@@ -11,61 +11,56 @@ let ob = {
 };
 ob = {
     formatDate: 'd/m/Y',
-    byId: function (id) {
-      return document.getElementById(id);
-    },
-    queryAll: function (str) {
-      return document.querySelectorAll(str);
-    },
-    addEvent: function(element, event, func) {
-      element.addEventListener(event, func, false);
-    },
     init: function () {
       // Event sur Banque
-      ob.queryAll('button[id*="btn_mod_banque"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.banque.modForm);
+      document.querySelectorAll('button[id*="btn_mod_banque"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.banque.modForm, false);
       });
-      ob.queryAll('button[id="btn_add_banque"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.banque.addForm);
+      document.querySelectorAll('button[id="btn_add_banque"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.banque.addForm, false);
       });
+
       // Event sur Categorie
-      ob.queryAll('button[id*="btn_mod_categorie"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.categorie.modForm);
+      document.querySelectorAll('button[id*="btn_mod_categorie"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.categorie.modForm, false);
       });
-      ob.queryAll('button[id="btn_add_categorie"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.categorie.addForm);
+      document.querySelectorAll('button[id="btn_add_categorie"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.categorie.addForm, false);
       });
 
       // Event sur Mode de paiement
-      ob.queryAll('button[id*="btn_mod_modepaiement"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.modepaiement.modForm);
+      document.querySelectorAll('button[id*="btn_mod_modepaiement"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.modepaiement.modForm, false);
       });
-      ob.queryAll('button[id="btn_add_modepaiement"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.modepaiement.addForm);
+      document.querySelectorAll('button[id="btn_add_modepaiement"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.modepaiement.addForm, false);
       });
 
       // Event sur Tiers
-      ob.queryAll('button[id*="btn_mod_tiers"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.tiers.modForm);
+      document.querySelectorAll('button[id*="btn_mod_tiers"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.tiers.modForm, false);
       });
-      ob.queryAll('button[id="btn_add_tiers"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.tiers.addForm);
+      document.querySelectorAll('button[id="btn_add_tiers"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.tiers.addForm, false);
       });
 
       // Event sur Compte
-      ob.queryAll('button[id*="btn_mod_compte"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.compte.modForm);
+      document.querySelectorAll('button[id*="btn_mod_compte"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.compte.modForm, false);
       });
-      ob.queryAll('button[id="btn_add_compte"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.compte.addForm);
+      document.querySelectorAll('button[id="btn_add_compte"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.compte.addForm, false);
       });
-      ob.queryAll('a[id="btn_add_compte"]').forEach(function(btn) {
-        ob.addEvent(btn, 'click', ob.compte.addForm);
+      document.querySelectorAll('a[id="btn_add_compte"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.compte.addForm, false);
       });
 
       // Event sur Operation
-      ob.queryAll('form[id="operation_add_show"]').forEach(function(form) {
-        ob.addEvent(form, "submit", ob.operation.submitFormAdd);
+      document.querySelectorAll('form[id="operation_add_show"]').forEach(function(form) {
+        form.addEventListener('submit', ob.operation.submitFormAdd, false);
+      });
+      document.querySelectorAll('button[id="btn_mod_operation"]').forEach(function(btn) {
+        btn.addEventListener('click', ob.operation.submitFormMod, false);
       });
 
       // Event sur Ajax
@@ -84,7 +79,7 @@ ob = {
           $("#form").html(
             $.parseHTML(data)
           );
-          let modal = new bootstrap.Modal(ob.byId(idModal));
+          let modal = new bootstrap.Modal(document.getElementById(idModal));
           modal.show();
           fctAfterLoad();
         }
@@ -148,15 +143,15 @@ ob = {
           dom: 'Bfrtip',
           pagingType: "numbers",
           pageLength: 20,
-          order: [[ 1, 'desc' ]],
+          order: [[ 1, 'desc'], [7, 'asc']],
           fixedHeader: true,
           colReorder: true,
           columns: ob.compte.tableColumns,
-          ajax: '/compte/' + ob.byId('compte-id').value + '/table',
-          dataSrc: 'data',
+          ajax: '/compte/' + document.getElementById('compte-id').value + '/table',
+          dataSrc: "",
           autoWidth: true,
           select: {
-            style: 'multi'
+            style: 'os'
           },
           buttons: [
             'copyHtml5', 'excelHtml5', 'pdfHtml5'
@@ -179,15 +174,35 @@ ob = {
           $('#'+ob.compte.tableName).columns.adjust().draw();
         });
 
-        ob.addEvent(document, 'DOMContentLoaded', function() {
-          let cb = ob.queryAll('[data-trigger]');
-          for (let i = 0; i < cb.length; ++i) {
-            let element = cb[i];
-            $(element).select2({
-              theme: 'bootstrap-5'
+        $("#"+ob.compte.tableName).DataTable().on('select', function(e, dt, type, indexes) {
+          if(type === 'row' && indexes.length == 1) { 
+            let data = $("#"+ob.compte.tableName).DataTable().rows( indexes ).data()[0];
+            $.ajax({
+              type: 'GET',
+              url: "/operation/" + data.id,
+            }).done(function (data) {
+              let o = data.data[0];
+              document.getElementById('operation_form_date').value = o.date.split('-')[2] + '/' + o.date.split('-')[1] + '/' + o.date.split('-')[0];
+              document.getElementById('operation_form_libelle').value = o.libelle;
+              document.getElementById('operation_form_montant').value = o.montant;
+              $('#btn_mod_operation').attr('data-operationid', o.id);
+              $('#operation_form_modepaiement').val(o.modePaiementId).trigger('change');
+              $('#operation_form_tiers').val(o.tiersId).trigger('change');
+              $('#operation_form_categorie').val(o.categorieId).trigger('change');
+              $('#operation_form_pointe').prop('checked', o.pointe);
             });
           }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            let cb = document.querySelectorAll('[data-trigger]');
+            for (let i = 0; i < cb.length; ++i) {
+              let element = cb[i];
+              $(element).select2({
+                theme: 'bootstrap-5'
+              });
+            }
+          }, false);
 
         document.addEventListener("keydown", function(event) {
           if (event.altKey && (event.key === 'p' || event.key === 'P'))
@@ -195,12 +210,11 @@ ob = {
               let data=$('#'+ob.compte.tableName).DataTable().rows({ selected: true }).data();
               for(i=0;i<data.length;i++)
               {
-                console.log(data[i]);
                 ob.operation.pointe(data[i].id);
               }
               ob.compte.refreshTable();
           }
-        });
+        }, false);
       },
     },
     operation: {
@@ -213,6 +227,16 @@ ob = {
           type: evt.srcElement.method,
           url: evt.srcElement.action,
           data: $(this).serialize(),
+        }).done(function (_data) {
+          ob.compte.refreshTable();
+        });
+      },
+      submitFormMod: function(evt) {
+        evt.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '/operation/modify/{id}'.replace('{id}', evt.currentTarget.dataset.operationid),
+          data: $("#operation_add_show").serialize(),
         }).done(function (_data) {
           ob.compte.refreshTable();
         });
@@ -233,8 +257,8 @@ ob = {
         );
       },
       compteBanque: function() {
-        ob.queryAll('button[id="btn_add_banque_compte"]').forEach(function(btn) {
-          ob.addEvent(btn, 'click', ob.banque.addForm);
+        document.querySelectorAll('button[id="btn_add_banque_compte"]').forEach(function(btn) {
+          btn.addEventListener('click', ob.banque.addForm, false);
         });
       },
     },
@@ -251,7 +275,7 @@ ob = {
           ob.modepaiement.modName,
           '/modepaiement/add',
           () => {
-            ob.addEvent(ob.byId("mode_paiement_form"), "submit", ob.modepaiement.submitForm);
+            document.getElementById("mode_paiement_form").addEventListener('submit', ob.modepaiement.submitForm, false);
           }
         );
       },
@@ -280,7 +304,7 @@ ob = {
           ob.tiers.modName,
           '/tiers/add',
           () => {
-            ob.addEvent(ob.byId("tiers_form"), "submit", ob.tiers.submitForm);
+            document.getElementById("tiers_form").addEventListener('submit', ob.tiers.submitForm, false);
           }
         );
       },
@@ -309,7 +333,7 @@ ob = {
           ob.categorie.modName,
           '/categorie/add',
           () => {
-            ob.addEvent(ob.byId("categorie_form"), "submit", ob.categorie.submitForm);
+            document.getElementById("categorie_form").addEventListener('submit', ob.categorie.submitForm, false);
           }
         );
       },
